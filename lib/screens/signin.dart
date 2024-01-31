@@ -65,10 +65,7 @@ class _SignInState extends State<SignIn> {
               reusableTextField("Enter Password", Icons.lock_outline, true,
                   _passwordTextController),
               const SizedBox(height: 5),
-              uiButton(context, "Login", () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
-              }),
+              uiButton(context, "Login", addAuthentication),
               ImageWidget("assets/images/banner.png", 300, 240),
             ]),
           ))),

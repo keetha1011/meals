@@ -34,7 +34,7 @@ class _SignInState extends State<SignIn> {
         print('User is currently signed out!');
       } else {
         // !!!!! Here you know the user is signed-in !!!!!
-        print('User is signed in!');
+        print('User is signed inn!');
       }
     });
   }

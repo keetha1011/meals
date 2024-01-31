@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "824585926919",
+    "firebase_url": "https://hostelmessmanagent-default-rtdb.firebaseio.com",
+    "project_id": "hostelmessmanagent",
+    "storage_bucket": "hostelmessmanagent.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:824585926919:android:0151c1cf6cc51660f06da2",
+        "android_client_info": {
+          "package_name": "com.example.learning_tutorial"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATkBZEF9GzYJLjlpL1qfePf55uWQIvC-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:824585926919:android:846db2ffc89a75f1f06da2",
+        "android_client_info": {
+          "package_name": "com.recode.hackloop2024"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATkBZEF9GzYJLjlpL1qfePf55uWQIvC-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

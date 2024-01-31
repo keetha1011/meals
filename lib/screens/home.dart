@@ -1,0 +1,54 @@
+import 'package:flutter/material.dart';
+import 'package:project02_hackloop/screens/user.dart';
+import 'package:project02_hackloop/utils/color.dart';
+import 'package:project02_hackloop/widgets/reusable.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    String breakfast,lunch,snacks,dinner;
+    breakfast = lunch = snacks = dinner = "default";
+    return Scaffold(
+      appBar: AppBar(title: const Icon(Icons.fastfood,size: 30,), iconTheme: const IconThemeData(color: Color.fromARGB(212, 255, 255, 255)),
+      backgroundColor: toColor("BB1009"),foregroundColor: toColor("d4d4d4"),
+      centerTitle: true,
+      actions: <Widget>[
+        IconButton(onPressed: (){
+          Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => usercenter()));
+        }, icon: const Icon(Icons.person))
+      ],),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [toColor("BB1009"), toColor("610000")],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          )),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20,0,20,20),
+              child: Column(
+                children: <Widget>[
+                  logoWidget("assets/logo/meals.png",240,210),
+                  newcard(context, "Breakfast is $breakfast", (){}),
+                  newcard(context, "Lunch is $lunch", (){}),
+                  newcard(context, "Snacks is $snacks", (){}),
+                  newcard(context, "Dinner is $dinner", (){}),
+                ]
+              ),
+            )
+        )
+      ),
+    );
+  }
+}

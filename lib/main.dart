@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project02_hackloop/Screens/signin.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:project02_hackloop/screens/home.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -25,6 +27,37 @@ class MainApp extends StatelessWidget {
           fontFamily: GoogleFonts.dmSans().fontFamily,
           primarySwatch: Colors.red,
         ),
-        home: const SignIn());
+        home: AuthenticationWrapper());
   }
 }
+
+class AuthenticationWrapper extends StatefulWidget {
+  @override
+  _AuthenticationWrapperState createState() => _AuthenticationWrapperState();
+}
+
+class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkUserAuthentication();
+      });
+  }
+
+  void checkUserAuthentication() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SignIn();
+  }
+}
+

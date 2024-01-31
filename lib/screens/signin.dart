@@ -17,9 +17,11 @@ class _SignInState extends State<SignIn> {
 
   void addAuthentication() {
     try {
-      final credential = FirebaseAuth.instance.signInWithEmailAndPassword(
+        FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailTextController.text,
-          password: _passwordTextController.text);
+          password: _passwordTextController.text).then((value) => Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => HomeScreen()),
+          ));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -33,8 +35,9 @@ class _SignInState extends State<SignIn> {
       if (user == null) {
         print('User is currently signed out!');
       } else {
+        
         // !!!!! Here you know the user is signed-in !!!!!
-        print('User is signed inn!');
+        print('User is signed in!');
       }
     });
   }

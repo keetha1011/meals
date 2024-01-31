@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project02_hackloop/screens/signin.dart';
 import 'package:project02_hackloop/utils/color.dart';
@@ -32,9 +33,10 @@ class _usercenterState extends State<usercenter> {
               padding: const EdgeInsets.fromLTRB(20,0,20,20),
               child: Column(
                 children: <Widget>[
-                  uiButton(context, "Logout", (){
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignIn()));
+                  uiButton(context, "Logout", () async{
+                    await FirebaseAuth.instance.signOut().then((value) => Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (context) => SignIn()),
+                      (Route<dynamic> route) => false));
                   })
                 ]
               ),

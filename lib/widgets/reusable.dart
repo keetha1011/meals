@@ -82,47 +82,23 @@ Container uiButton(BuildContext context, String title, Function onTap) {
 
 Container newcard(BuildContext context, String title, Function onTap){
     return Container(
+      width: 400,
       child: Card(
         elevation: 5,
         color: toColor("d4d4d4"),
-        child: Padding(padding: const EdgeInsets.all(30),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              const SizedBox(height: 8,),
-              Text("$title", style: TextStyle(color: toColor("000000"), fontSize: 22),),
-              IconButton(onPressed: (){onTap();} , icon: Icon(Icons.thumb_up,size: 22,color: toColor("16a349"),),)
-            ],
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Padding(padding: const EdgeInsets.all(30),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Text("$title", style: TextStyle(color: toColor("000000"), fontSize: 22),),
+                IconButton(onPressed: (){onTap();} , icon: Icon(Icons.thumb_up,size: 22,color: toColor("16a349"),),)
+              ],
+            ),
           ),
-        ),
+        )
       )
     );
 }
 
-Future errormess(BuildContext context, String title){
-  return showDialog(
-    context: context,
-    barrierDismissible: false, // user must tap button!
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text('AlertDialog Title'),
-        content: const SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
-              Text('This is a demo alert dialog.'),
-              Text('Would you like to approve of this message?'),
-            ],
-          ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: const Text('Approve'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-}

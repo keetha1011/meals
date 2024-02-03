@@ -52,12 +52,12 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.fromLTRB(20,0,20,20),
               child: Column(
                 children: <Widget>[
-                  Padding(padding: EdgeInsets.fromLTRB(10, 80, 10, 00),child: logoWidget("assets/logo/meals.png",240,60)),
-                  Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 80),child:Text("For "+tomdate(), style: TextStyle(color: toColor("d4d4d4"), fontSize: 18, fontWeight: FontWeight.bold))),
-                  newcard(context, "Breakfast is ${mealData.breakfast}", (){}),
-                  newcard(context, "Lunch is ${mealData.lunch}", (){}),
-                  newcard(context, "Snacks is ${mealData.snacks}", (){}),
-                  newcard(context, "Dinner is ${mealData.dinner}", (){}),
+                  Padding(padding: EdgeInsets.fromLTRB(10, 80, 10, 00),child: fadeMeIn(logoWidget("assets/logo/meals.png",240,60),0)),
+                  Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 80),child:fadeMeIn(Text("For "+tomdate(), style: TextStyle(color: toColor("d4d4d4"), fontSize: 18, fontWeight: FontWeight.bold)),0)),
+                  fadeMeIn(newcard(context, "Breakfast is ${mealData.breakfast}", (){}),50),
+                  fadeMeIn(newcard(context, "Lunch is ${mealData.lunch}", (){}),100),
+                  fadeMeIn(newcard(context, "Snacks is ${mealData.snacks}", (){}),150),
+                  fadeMeIn(newcard(context, "Dinner is ${mealData.dinner}", (){}),200),
                 ]
               ),
             )

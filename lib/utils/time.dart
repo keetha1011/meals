@@ -8,10 +8,10 @@ String tomdate() {
     internetTime = DateTime.now().add(Duration(milliseconds: offset));
   });
 
-  DateTime tomorrow = internetTime.add(Duration(days: 1));
+  DateTime today = internetTime;
 
-  String date = tomorrow.day.toString().padLeft(2, '0') + "/" +
-      tomorrow.month.toString().padLeft(2, '0');
+  String date = today.day.toString().padLeft(2, '0') + "/" +
+      today.month.toString().padLeft(2, '0');
 
   return date;
 }

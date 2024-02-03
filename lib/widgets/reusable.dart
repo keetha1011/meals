@@ -3,6 +3,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:project02_hackloop/utils/color.dart';
 
 Image logoWidget(String imageName,double x,double y) {
@@ -102,3 +103,9 @@ Container newcard(BuildContext context, String title, Function onTap){
     );
 }
 
+fadeMeIn(Widget wid, double delay){
+  return Animate(
+    effects: [FadeEffect(delay: delay.ms), SlideEffect(delay: delay.ms)],
+    child: wid,
+  );
+}

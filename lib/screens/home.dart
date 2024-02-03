@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project02_hackloop/screens/user.dart';
 import 'package:project02_hackloop/utils/color.dart';
+import 'package:project02_hackloop/utils/time.dart';
 import 'package:project02_hackloop/widgets/reusable.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     String breakfast,lunch,snacks,dinner;
     breakfast = lunch = snacks = dinner = "default";
+    debugPrint(tomdate());
     return Scaffold(
       appBar: AppBar(title: const Icon(Icons.fastfood,size: 30,), iconTheme: const IconThemeData(color: Color.fromARGB(212, 255, 255, 255)),
       backgroundColor: toColor("BB1009"),foregroundColor: toColor("d4d4d4"),
@@ -39,7 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.fromLTRB(20,0,20,20),
               child: Column(
                 children: <Widget>[
-                  logoWidget("assets/logo/meals.png",240,210),
+                  Padding(padding: EdgeInsets.fromLTRB(10, 80, 10, 00),child: logoWidget("assets/logo/meals.png",240,60)),
+                  Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 80),child:Text("For "+tomdate(), style: TextStyle(color: toColor("d4d4d4"), fontSize: 18, fontWeight: FontWeight.bold))),
                   newcard(context, "Breakfast is $breakfast", (){}),
                   newcard(context, "Lunch is $lunch", (){}),
                   newcard(context, "Snacks is $snacks", (){}),

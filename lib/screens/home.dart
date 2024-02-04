@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:project02_hackloop/main.dart';
 import 'package:project02_hackloop/screens/user.dart';
@@ -11,10 +13,14 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-
 class _HomeScreenState extends State<HomeScreen> {
-  
-  late MealData mealData;
+  bool isThumbsUp0 = true;
+  bool isThumbsUp1 = true;
+  bool isThumbsUp2 = true;
+  bool isThumbsUp3 = true;
+  ChoiceData? choiceData;
+  MealData? mealData;
+
   @override
   void initState() {
     super.initState();
@@ -23,10 +29,48 @@ class _HomeScreenState extends State<HomeScreen> {
         mealData = data;
       });
     });
+    super.initState();
+    getChoiceData(getUsername()).then((data) {
+      setState(() {
+        choiceData = data;
+        isThumbsUp0 = choiceData!.breakfast;
+        isThumbsUp1 = choiceData!.lunch;
+        isThumbsUp2 = choiceData!.snacks;
+        isThumbsUp3 = choiceData!.dinner;
+      });
+    });
   }
   
   @override
   Widget build(BuildContext context) {
+
+
+
+    void toggleThumbsUp0() {
+      setState(() {
+        isThumbsUp0 = !isThumbsUp0;
+        updateDataInFirestore('choice', getUsername(), "breakfast", isThumbsUp0);
+      });
+    }
+    void toggleThumbsUp1() {
+      setState(() {
+        isThumbsUp1 = !isThumbsUp1;
+        updateDataInFirestore('choice', getUsername(), "lunch", isThumbsUp1);
+      });
+    }
+    void toggleThumbsUp2() {
+      setState(() {
+        isThumbsUp2 = !isThumbsUp2;
+        updateDataInFirestore('choice', getUsername(), "snacks", isThumbsUp0);
+      });
+    }
+    void toggleThumbsUp3() {
+      setState(() {
+        isThumbsUp3 = !isThumbsUp3;
+        updateDataInFirestore('choice', getUsername(), "dinner", isThumbsUp0);
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(title: const Icon(Icons.fastfood,size: 30,), iconTheme: const IconThemeData(color: Color.fromARGB(212, 255, 255, 255)),
       backgroundColor: toColor("BB1009"),foregroundColor: toColor("d4d4d4"),
@@ -53,10 +97,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: <Widget>[
                   Padding(padding: EdgeInsets.fromLTRB(10, 80, 10, 00),child: fadeMeIn(logoWidget("assets/logo/meals.png",240,60),0)),
                   Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 80),child:fadeMeIn(Text("For "+tomdate(), style: TextStyle(color: toColor("d4d4d4"), fontSize: 18, fontWeight: FontWeight.bold)),0)),
-                  fadeMeIn(newcard(context, "Breakfast is ${mealData.breakfast}", (){}),50),
-                  fadeMeIn(newcard(context, "Lunch is ${mealData.lunch}", (){}),100),
-                  fadeMeIn(newcard(context, "Snacks is ${mealData.snacks}", (){}),150),
-                  fadeMeIn(newcard(context, "Dinner is ${mealData.dinner}", (){}),200),
+                  fadeMeIn(newcard(context, "Breakfast is ${mealData?.breakfast}", toggleThumbsUp0, isThumbsUp: isThumbsUp0),50),
+                  fadeMeIn(newcard(context, "Lunch is ${mealData?.lunch}", toggleThumbsUp1, isThumbsUp: isThumbsUp1),100),
+                  fadeMeIn(newcard(context, "Snacks is ${mealData?.snacks}", toggleThumbsUp2, isThumbsUp: isThumbsUp2),150),
+                  fadeMeIn(newcard(context, "Dinner is ${mealData?.dinner}", toggleThumbsUp3, isThumbsUp: isThumbsUp3),200),
                 ]
               ),
             )

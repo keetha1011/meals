@@ -82,28 +82,55 @@ Container uiButton(BuildContext context, String title, Function onTap) {
   );
 }
 
-Container newcard(BuildContext context, String title, Function onTap){
-    return Container(
-      width: 400,
-      child: Card(
-        elevation: 5,
-        color: toColor("d4d4d4"),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Padding(padding: const EdgeInsets.all(30),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Text("$title", style: TextStyle(color: toColor("000000"), fontSize: 22),),
-                IconButton(onPressed: (){onTap();} , icon: Icon(Icons.thumb_up,size: 22,color: toColor("16a349"),),)
-              ],
-            ),
-          ),
-        )
-      )
-    );
+class ParentWidget extends StatefulWidget {
+  @override
+  _ParentWidgetState createState() => _ParentWidgetState();
 }
 
+class _ParentWidgetState extends State<ParentWidget> {
+  bool isThumbsUp = true;
+
+  void toggleThumbsUp() {
+    setState(() {
+      isThumbsUp = !isThumbsUp;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return newcard(context, 'Title', toggleThumbsUp);
+  }
+}
+
+Container newcard(BuildContext context, String title, Function onTap,{bool isThumbsUp = false}) {
+  return Container(
+    width: 400,
+    child: Card(
+      elevation: 5,
+      color: toColor("d4d4d4"),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Padding(
+          padding: const EdgeInsets.all(30),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Text("$title", style: TextStyle(color:toColor("111111"), fontSize: 22),),
+              IconButton(
+                onPressed: () => onTap(),
+                icon: Icon(
+                  isThumbsUp ? Icons.thumb_up : Icons.thumb_down, // Change icon based on state
+                  size: 22,
+                  color: isThumbsUp ? Color(0xFF16A349) : Color.fromARGB(244, 150, 36, 36), // Change color based on state
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
 fadeMeIn(Widget wid, double delay){
   return Animate(
     effects: [FadeEffect(delay: delay.ms, begin: 0), SlideEffect(delay: delay.ms)],

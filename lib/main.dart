@@ -98,3 +98,41 @@ Future<MealData> getMealData(String documentId) async {
   }
   return MealData(breakfast: breakfast, lunch: lunch, snacks: snacks, dinner: dinner);
 }
+
+class ChoiceData {
+  bool breakfast, lunch, snacks, dinner;
+  ChoiceData({required this.breakfast, required this.lunch, required this.snacks, required this.dinner});
+}
+
+Future<ChoiceData> getChoiceData(String documentId) async {
+  final db = FirebaseFirestore.instance;
+  final collection = db.collection('choice');
+  final document = collection.doc(documentId);
+  final data = await document.get();
+  final choiceData = data.data();
+  
+  bool breakfast = true, lunch = true, snacks = true, dinner = true;
+  if (choiceData == null){
+    print("null data");
+  }
+  else{
+    breakfast = await (choiceData['breakfast'] as FutureOr<bool>?) ?? true;
+    lunch = await (choiceData['lunch'] as FutureOr<bool>?) ?? true;
+    snacks = await (choiceData['snacks'] as FutureOr<bool>?) ?? true;
+    dinner = await (choiceData['dinner'] as FutureOr<bool>?) ?? true;
+  }
+  return ChoiceData(breakfast: breakfast, lunch: lunch, snacks: snacks, dinner: dinner);
+}
+
+Future<void> updateDataInFirestore(String collectionName, String documentId, String fieldName, var newValue) async {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  try {
+    await _firestore.collection(collectionName).doc(documentId).update({
+      fieldName: newValue,
+    });
+    print('Data updated successfully!');
+  } catch (e) {
+    print('Error updating data: $e');
+  }
+}

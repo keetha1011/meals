@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project02_hackloop/screens/signin.dart';
 import 'package:project02_hackloop/utils/color.dart';
 import 'package:project02_hackloop/widgets/reusable.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class usercenter extends StatefulWidget {
   const usercenter({Key? key}) : super(key: key);
@@ -14,6 +15,8 @@ class usercenter extends StatefulWidget {
 class _usercenterState extends State<usercenter> {
   @override
   Widget build(BuildContext context) {
+    String username = getUsername();
+
     return Scaffold(
       appBar: AppBar(title: const Icon(Icons.person,size: 30,), iconTheme: const IconThemeData(color: Color.fromARGB(212, 255, 255, 255)),
       backgroundColor: toColor("BB1009"),foregroundColor: toColor("d4d4d4"),
@@ -33,16 +36,57 @@ class _usercenterState extends State<usercenter> {
               padding: const EdgeInsets.fromLTRB(20,0,20,20),
               child: Column(
                 children: <Widget>[
-                  uiButton(context, "Logout", () async{
+                  Padding(padding: EdgeInsets.fromLTRB(10, 50, 10, 0),child:DownloadAndDisplayImage()),
+                  Padding(padding: EdgeInsets.fromLTRB(10, 50, 10, 0),child:fadeMeIn(Text("$username", style: TextStyle(color: toColor("d4d4d4"), fontSize: 30, fontWeight: FontWeight.bold)),0)),
+                  Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 0),child:fadeMeIn(Text("(Contact admin for User Credentials)", style: TextStyle(color: toColor("d4d4d4"), fontSize: 18, fontWeight: FontWeight.bold)),50)),
+                  SizedBox(height: 700,),
+                  fadeMeIn(uiButton(context, "Logout", () async{
                     await FirebaseAuth.instance.signOut().then((value) => Navigator.pushAndRemoveUntil(context,
                       MaterialPageRoute(builder: (context) => SignIn()),
                       (Route<dynamic> route) => false));
-                  })
+                  }),100),
+                  Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 0),child:fadeMeIn(Text("M.E.A.L.S. (Meal Efficiency & Automated Logistics System)", style: TextStyle(color: toColor("d4d4d4"), fontSize: 12)),150)),
                 ]
               ),
             )
         )
       ),
     );
+  }
+}
+
+class DownloadAndDisplayImage extends StatefulWidget {
+  @override
+  _DownloadAndDisplayImageState createState() => _DownloadAndDisplayImageState();
+}
+
+class _DownloadAndDisplayImageState extends State<DownloadAndDisplayImage> {
+  String username = getUsername();
+  final FirebaseStorage storage = FirebaseStorage.instance;
+  String? imageUrl;
+
+  @override
+  void initState() {
+    super.initState();
+    downloadImage();
+  }
+  Future<void> downloadImage() async {
+    try{
+    final Reference imageRef = await storage.ref().child('userprof/$username.jpg');
+    final String url = await imageRef.getDownloadURL();
+    setState(() {
+      imageUrl = url;
+    });} on FirebaseException catch (e) {
+      print("exception $e");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (imageUrl != null) {
+      return ClipRRect(child: Image.network(imageUrl!, width: 300, height: 300,),borderRadius: BorderRadius.all(Radius.circular(30)),);
+    } else {
+      return ClipRRect(child: Image.network("https://i0.wp.com/digitalhealthskills.com/wp-content/uploads/2022/11/3da39-no-user-image-icon-27.png?fit=500%2C500&ssl=1", width: 300, height: 300,),borderRadius: BorderRadius.all(Radius.circular(30)),);
+    }
   }
 }

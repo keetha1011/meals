@@ -27,7 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
   
   @override
   Widget build(BuildContext context) {
-    debugPrint(tomdate());
     return Scaffold(
       appBar: AppBar(title: const Icon(Icons.fastfood,size: 30,), iconTheme: const IconThemeData(color: Color.fromARGB(212, 255, 255, 255)),
       backgroundColor: toColor("BB1009"),foregroundColor: toColor("d4d4d4"),

@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:project02_hackloop/utils/color.dart';
@@ -105,7 +106,19 @@ Container newcard(BuildContext context, String title, Function onTap){
 
 fadeMeIn(Widget wid, double delay){
   return Animate(
-    effects: [FadeEffect(delay: delay.ms), SlideEffect(delay: delay.ms)],
+    effects: [FadeEffect(delay: delay.ms, begin: 0), SlideEffect(delay: delay.ms)],
     child: wid,
   );
+}
+
+Widget buildImage(String imageUrl) {
+  return Image.network(imageUrl, width: 200, height: 200, fit: BoxFit.cover);
+}
+
+getUsername(){
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? currentUser = auth.currentUser ;
+    String username = currentUser?.email ?? 'Login Error';
+    username = username.substring(0,10);
+    return username;
 }

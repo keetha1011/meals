@@ -17,6 +17,7 @@ dependencies:
   flutter_animate: ^4.5.0
   google_fonts: ^6.1.0
   ntp: ^2.0.0
+  flutter_native_splash: ^2.3.10
 
 dev_dependencies:
   flutter_test:
@@ -27,3 +28,16 @@ flutter:
   assets:
     - assets/images/
     - assets/logo/
+
+flutter_native_splash:
+  color: "#BB1009"
+  color_dark: "#340000"
+  image: assets\logo\meals_large.png
+  image_dark: assets\logo\meals_large.png
+  
+  android_12:
+    color: "#BB1009"
+    color_dark: "#340000"
+    image: C:\Programming\Flutter\meals\assets\logo\meals_large.png
+    image_dark: C:\Programming\Flutter\meals\assets\logo\meals_large.png
+  web: false

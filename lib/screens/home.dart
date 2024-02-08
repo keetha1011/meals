@@ -61,13 +61,13 @@ class _HomeScreenState extends State<HomeScreen> {
     void toggleThumbsUp2() {
       setState(() {
         isThumbsUp2 = !isThumbsUp2;
-        updateDataInFirestore('choice', getUsername(), "snacks", isThumbsUp0);
+        updateDataInFirestore('choice', getUsername(), "snacks", isThumbsUp2);
       });
     }
     void toggleThumbsUp3() {
       setState(() {
         isThumbsUp3 = !isThumbsUp3;
-        updateDataInFirestore('choice', getUsername(), "dinner", isThumbsUp0);
+        updateDataInFirestore('choice', getUsername(), "dinner", isThumbsUp3);
       });
     }
 
@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.fromLTRB(20,0,20,20),
               child: Column(
                 children: <Widget>[
-                  Padding(padding: EdgeInsets.fromLTRB(10, 80, 10, 00),child: fadeMeIn(logoWidget("assets/logo/meals.png",240,60),0)),
+                  Padding(padding: EdgeInsets.fromLTRB(10, 80, 10, 00),child: fadeMeIn(logoWidget("assets/logo/meals.png",140,60),0)),
                   Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 80),child:fadeMeIn(Text("For "+tomdate(), style: TextStyle(color: toColor("d4d4d4"), fontSize: 18, fontWeight: FontWeight.bold)),0)),
                   fadeMeIn(newcard(context, "Breakfast is ${mealData?.breakfast}", toggleThumbsUp0, isThumbsUp: isThumbsUp0),50),
                   fadeMeIn(newcard(context, "Lunch is ${mealData?.lunch}", toggleThumbsUp1, isThumbsUp: isThumbsUp1),100),

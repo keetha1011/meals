@@ -45,7 +45,10 @@ class _usercenterState extends State<usercenter> {
                       MaterialPageRoute(builder: (context) => SignIn()),
                       (Route<dynamic> route) => false));
                   }),100),
-                  Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 0),child:fadeMeIn(Text("M.E.A.L.S. (Meal Efficiency & Automated Logistics System)", style: TextStyle(color: toColor("d4d4d4"), fontSize: 12)),150)),
+                  Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    child:fadeMeIn(Text("M.E.A.L.S. (Meal Efficiency & Automated Logistics System)",
+                    style: TextStyle(color: toColor("d4d4d4"), fontSize: 12)),150)
+                  ),
                 ]
               ),
             )
@@ -86,7 +89,13 @@ class _DownloadAndDisplayImageState extends State<DownloadAndDisplayImage> {
     if (imageUrl != null) {
       return ClipRRect(child: Image.network(imageUrl!, width: 300, height: 300,),borderRadius: BorderRadius.all(Radius.circular(30)),);
     } else {
-      return ClipRRect(child: Image.network("https://i0.wp.com/digitalhealthskills.com/wp-content/uploads/2022/11/3da39-no-user-image-icon-27.png?fit=500%2C500&ssl=1", width: 300, height: 300,),borderRadius: BorderRadius.all(Radius.circular(30)),);
+      return ClipRRect(child: Image.asset(
+        "assets/images/user.jpg",
+        fit: BoxFit.fitWidth,
+        width: 300,
+        height: 300,
+        ),borderRadius: BorderRadius.all(Radius.circular(30)),
+      );
     }
   }
 }

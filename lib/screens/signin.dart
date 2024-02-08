@@ -57,9 +57,11 @@ class _SignInState extends State<SignIn> {
           child: SingleChildScrollView(
               child: Padding(
             padding: EdgeInsets.fromLTRB(
-                20, MediaQuery.of(context).size.height * 0.1, 20, 0),
+                20, 80, 20, 0),
             child: Column(children: <Widget>[
-              logoWidget("assets/logo/meals.png", 320, 240),
+              Padding(padding: EdgeInsets.fromLTRB(0,0,0,60),
+                child:logoWidget("assets/logo/meals.png", 320, 240)
+              ),
               reusableTextField("Enter UserName", Icons.person_outline, false,
                   _emailTextController),
               const SizedBox(
@@ -69,7 +71,10 @@ class _SignInState extends State<SignIn> {
                   _passwordTextController),
               const SizedBox(height: 5),
               uiButton(context, "Login", addAuthentication),
-              ImageWidget("assets/images/banner.png", 300, 240),
+              Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child:fadeMeIn(Text("M.E.A.L.S. (Meal Efficiency & Automated Logistics System)",
+                style: TextStyle(color: toColor("d4d4d4"), fontSize: 12)),150)
+              ),
             ]),
           ))),
     );

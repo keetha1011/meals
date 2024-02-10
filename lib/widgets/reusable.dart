@@ -106,12 +106,13 @@ Container newcard(BuildContext context, String title, Function onTap,{bool isThu
   return Container(
     width: 400,
     child: Card(
+      
       elevation: 5,
       color: toColor("d4d4d4"),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Padding(
-          padding: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(28),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
@@ -119,7 +120,7 @@ Container newcard(BuildContext context, String title, Function onTap,{bool isThu
               IconButton(
                 onPressed: () => onTap(),
                 icon: Icon(
-                  isThumbsUp ? Icons.thumb_up : Icons.thumb_down, // Change icon based on state
+                  isThumbsUp ? Icons.thumb_up : Icons.thumb_down_alt_outlined, // Change icon based on state
                   size: 22,
                   color: isThumbsUp ? Color(0xFF16A349) : Color.fromARGB(244, 150, 36, 36), // Change color based on state
                 ),
@@ -133,7 +134,7 @@ Container newcard(BuildContext context, String title, Function onTap,{bool isThu
 }
 fadeMeIn(Widget wid, double delay){
   return Animate(
-    effects: [FadeEffect(delay: delay.ms, begin: 0), SlideEffect(delay: delay.ms)],
+    effects: [FadeEffect(delay: delay.ms, begin: 0)],
     child: wid,
   );
 }
@@ -148,4 +149,13 @@ getUsername(){
     String username = currentUser?.email ?? 'Login Error';
     username = username.substring(0,10);
     return username;
+}
+
+AlertDialog alertMe(BuildContext context, String title, actions ,contents){
+  return AlertDialog(
+    actions: actions,
+    contentPadding: EdgeInsets.all(20),
+    content: contents,
+    title: Text(title),
+  );
 }

@@ -43,44 +43,67 @@ class _HomeScreenState extends State<HomeScreen> {
   
   @override
   Widget build(BuildContext context) {
-
-
+    int hourNow = hournow();
+    int breTime = 6, lunTime = 10, sncTime = 16, dinTime = 18;
 
     void toggleThumbsUp0() {
+      if (hourNow<breTime){
       setState(() {
         isThumbsUp0 = !isThumbsUp0;
         updateDataInFirestore('choice', getUsername(), "breakfast", isThumbsUp0);
       });
+      }else{
+        showDialog(context: context, builder: (context)=> alertMe(context, "Too Late!", [
+          TextButton(onPressed: (){
+            Navigator.of(context).pop();
+          }, child: Text("Ok"))
+        ], Text("You Should Update this before 6AM")));
+      }
     }
     void toggleThumbsUp1() {
+      if (hourNow<breTime){
       setState(() {
         isThumbsUp1 = !isThumbsUp1;
         updateDataInFirestore('choice', getUsername(), "lunch", isThumbsUp1);
       });
+      }else{
+        showDialog(context: context, builder: (context)=> alertMe(context, "Too Late!", [
+          TextButton(onPressed: (){
+            Navigator.of(context).pop();
+          }, child: Text("Ok"))
+        ], Text("You Should Update this before 10AM")));
+      }
     }
     void toggleThumbsUp2() {
+      if (hourNow<breTime){
       setState(() {
         isThumbsUp2 = !isThumbsUp2;
         updateDataInFirestore('choice', getUsername(), "snacks", isThumbsUp2);
       });
+      }else{
+        showDialog(context: context, builder: (context)=> alertMe(context, "Too Late!", [
+          TextButton(onPressed: (){
+            Navigator.of(context).pop();
+          }, child: Text("Ok"))
+        ], Text("You Should Update this before 4PM")));
+      }
     }
     void toggleThumbsUp3() {
+      if (hourNow<breTime){
       setState(() {
         isThumbsUp3 = !isThumbsUp3;
         updateDataInFirestore('choice', getUsername(), "dinner", isThumbsUp3);
       });
+      }else{
+        showDialog(context: context, builder: (context)=> alertMe(context, "Too Late!", [
+          TextButton(onPressed: (){
+            Navigator.of(context).pop();
+          }, child: Text("Ok"))
+        ], Text("You Should Update this before 6PM")));
+      }
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Icon(Icons.fastfood,size: 30,), iconTheme: const IconThemeData(color: Color.fromARGB(212, 255, 255, 255)),
-      backgroundColor: toColor("BB1009"),foregroundColor: toColor("d4d4d4"),
-      centerTitle: true,
-      actions: <Widget>[
-        IconButton(onPressed: (){
-          Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => usercenter()));
-        }, icon: const Icon(Icons.person))
-      ],),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -95,8 +118,8 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.fromLTRB(20,0,20,20),
               child: Column(
                 children: <Widget>[
-                  Padding(padding: EdgeInsets.fromLTRB(10, 80, 10, 00),child: fadeMeIn(logoWidget("assets/logo/meals.png",140,60),0)),
-                  Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 80),child:fadeMeIn(Text("For "+tomdate(), style: TextStyle(color: toColor("d4d4d4"), fontSize: 18, fontWeight: FontWeight.bold)),0)),
+                  Padding(padding: EdgeInsets.fromLTRB(10, 150, 10, 00),child: fadeMeIn(logoWidget("assets/logo/meals.png",140,60),0)),
+                  Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 40),child:fadeMeIn(Text("For "+tomdate(), style: TextStyle(color: toColor("d4d4d4"), fontSize: 18, fontWeight: FontWeight.bold)),0)),
                   fadeMeIn(newcard(context, "Breakfast is ${mealData?.breakfast}", toggleThumbsUp0, isThumbsUp: isThumbsUp0),50),
                   fadeMeIn(newcard(context, "Lunch is ${mealData?.lunch}", toggleThumbsUp1, isThumbsUp: isThumbsUp1),100),
                   fadeMeIn(newcard(context, "Snacks is ${mealData?.snacks}", toggleThumbsUp2, isThumbsUp: isThumbsUp2),150),

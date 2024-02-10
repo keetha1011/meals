@@ -15,3 +15,18 @@ String tomdate() {
 
   return date;
 }
+
+int hournow() {
+  DateTime internetTime = DateTime.now();
+
+  NTP.getNtpOffset(
+    localTime: DateTime.now(), lookUpAddress: "time.google.com").then((offset) {
+    internetTime = DateTime.now().add(Duration(milliseconds: offset));
+  });
+
+  DateTime today = internetTime;
+
+  int hour = today.hour;
+
+  return hour;
+}

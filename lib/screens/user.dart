@@ -18,10 +18,6 @@ class _usercenterState extends State<usercenter> {
     String username = getUsername();
 
     return Scaffold(
-      appBar: AppBar(title: const Icon(Icons.person,size: 30,), iconTheme: const IconThemeData(color: Color.fromARGB(212, 255, 255, 255)),
-      backgroundColor: toColor("BB1009"),foregroundColor: toColor("d4d4d4"),
-      centerTitle: true,
-      ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -37,9 +33,9 @@ class _usercenterState extends State<usercenter> {
               child: Column(
                 children: <Widget>[
                   Padding(padding: EdgeInsets.fromLTRB(10, 50, 10, 0),child:DownloadAndDisplayImage()),
-                  Padding(padding: EdgeInsets.fromLTRB(10, 50, 10, 0),child:fadeMeIn(Text("$username", style: TextStyle(color: toColor("d4d4d4"), fontSize: 30, fontWeight: FontWeight.bold)),0)),
+                  Padding(padding: EdgeInsets.fromLTRB(10, 30, 10, 0),child:fadeMeIn(Text("$username", style: TextStyle(color: toColor("d4d4d4"), fontSize: 30, fontWeight: FontWeight.bold)),0)),
                   Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 0),child:fadeMeIn(Text("(Contact admin for User Credentials)", style: TextStyle(color: toColor("d4d4d4"), fontSize: 18, fontWeight: FontWeight.bold)),50)),
-                  SizedBox(height: 700,),
+                  SizedBox(height: 240,),
                   fadeMeIn(uiButton(context, "Logout", () async{
                     await FirebaseAuth.instance.signOut().then((value) => Navigator.pushAndRemoveUntil(context,
                       MaterialPageRoute(builder: (context) => SignIn()),
@@ -87,13 +83,13 @@ class _DownloadAndDisplayImageState extends State<DownloadAndDisplayImage> {
   @override
   Widget build(BuildContext context) {
     if (imageUrl != null) {
-      return ClipRRect(child: Image.network(imageUrl!, width: 300, height: 300,),borderRadius: BorderRadius.all(Radius.circular(30)),);
+      return ClipRRect(child: Image.network(imageUrl!, width: 200, height: 200,),borderRadius: BorderRadius.all(Radius.circular(30)),);
     } else {
       return ClipRRect(child: Image.asset(
         "assets/images/user.jpg",
         fit: BoxFit.fitWidth,
-        width: 300,
-        height: 300,
+        width: 200,
+        height: 200,
         ),borderRadius: BorderRadius.all(Radius.circular(30)),
       );
     }

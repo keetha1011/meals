@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project02_hackloop/screens/home.dart';
+import 'package:project02_hackloop/screens/navig.dart';
 import 'package:project02_hackloop/utils/color.dart';
 import 'package:project02_hackloop/widgets/reusable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,31 +16,26 @@ class _SignInState extends State<SignIn> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
 
-  void addAuthentication() {
+  Future<void> addAuthentication() async {
     try {
-        FirebaseAuth.instance.signInWithEmailAndPassword(
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailTextController.text,
           password: _passwordTextController.text).then((value) => Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
+              MaterialPageRoute(builder: (context) => navigation()),
           ));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+      } else if (e.code == 'invalid-credential') {
+        showDialog(context: context, builder: (context)=> alertMe(context, "Wrong Password", [
+          TextButton(onPressed: (){
+            Navigator.of(context).pop();
+          }, child: Text("Ok"))
+        ], Text("Wrong Password, Try Again")));
       } else {
         print("Auth done!");
       }
     }
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        print('User is currently signed out!');
-      } else {
-        
-        // !!!!! Here you know the user is signed-in !!!!!
-        print('User is signed in!');
-      }
-    });
   }
 
   @override
@@ -60,7 +56,7 @@ class _SignInState extends State<SignIn> {
                 20, 80, 20, 0),
             child: Column(children: <Widget>[
               Padding(padding: EdgeInsets.fromLTRB(0,0,0,60),
-                child:logoWidget("assets/logo/meals.png", 320, 240)
+                child:logoWidget("assets/logo/meals_large.png", 320, 240)
               ),
               reusableTextField("Enter UserName", Icons.person_outline, false,
                   _emailTextController),
@@ -72,7 +68,7 @@ class _SignInState extends State<SignIn> {
               const SizedBox(height: 5),
               uiButton(context, "Login", addAuthentication),
               Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                child:fadeMeIn(Text("M.E.A.L.S. (Meal Efficiency & Automated Logistics System)",
+                child:fadeMeIn(Text("M.E.A.L.S. (Meal Efficiency & Automated Logistics System)",
                 style: TextStyle(color: toColor("d4d4d4"), fontSize: 12)),150)
               ),
             ]),

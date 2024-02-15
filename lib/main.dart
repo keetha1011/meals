@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:project02_hackloop/Screens/signin.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:project02_hackloop/screens/home.dart';
 import 'package:project02_hackloop/screens/navig.dart';
 import 'firebase_options.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -56,7 +55,7 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       checkUserAuthentication();
-      });
+    });
   }
   void checkUserAuthentication() async {
     User? user = FirebaseAuth.instance.currentUser;

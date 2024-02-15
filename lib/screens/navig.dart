@@ -1,6 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:project02_hackloop/screens/dashboard.dart';
 import 'package:project02_hackloop/screens/home.dart';
 import 'package:project02_hackloop/screens/user.dart';
 import 'package:project02_hackloop/utils/color.dart';
@@ -18,14 +17,7 @@ class _navigationState extends State<navigation> {
 
   static List<Widget> _pages = [
     HomeScreen(),
-    Icon(
-      Icons.dashboard_customize,
-      size: 150,
-    ),
-    Icon(
-      Icons.qr_code_2_rounded,
-      size: 150,
-    ),
+    dash(),
     usercenter()
   ];
 
@@ -37,6 +29,10 @@ class _navigationState extends State<navigation> {
 
   @override
   Widget build(BuildContext context) {
+    double pad = MediaQuery.of(context).size.width/2 - 160;
+    if(pad <= 20){
+      pad = 20;
+    }
     return Scaffold(
       body: Center(
         child: _pages.elementAt(_selectedIndex),
@@ -44,7 +40,7 @@ class _navigationState extends State<navigation> {
       bottomNavigationBar: Container(
         color: toColor("540000"),
         child: Padding(
-          padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+          padding: EdgeInsets.fromLTRB(pad, 10, pad, 10),
           child: GNav(
           gap: 8,
           tabs:[
@@ -55,10 +51,6 @@ class _navigationState extends State<navigation> {
             GButton(
               icon: Icons.dashboard_rounded,
               text: 'Dashboard',
-            ),
-            GButton(
-              icon: Icons.qr_code_2_outlined,
-              text: 'QR',
             ),
             GButton(
               icon: Icons.settings,

@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     int hourNow = hournow();
-    int breTime = 6, lunTime = 10, sncTime = 16, dinTime = 18;
+    int breTime = 6, lunTime = 10, sncTime = 15, dinTime = 17;
 
     void toggleThumbsUp0() {
       if (hourNow<breTime){
@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
     void toggleThumbsUp1() {
-      if (hourNow<breTime){
+      if (hourNow<lunTime){
       setState(() {
         isThumbsUp1 = !isThumbsUp1;
         updateDataInFirestore('choice', getUsername(), "lunch", isThumbsUp1);
@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
     void toggleThumbsUp2() {
-      if (hourNow<breTime){
+      if (hourNow<sncTime){
       setState(() {
         isThumbsUp2 = !isThumbsUp2;
         updateDataInFirestore('choice', getUsername(), "snacks", isThumbsUp2);
@@ -85,11 +85,11 @@ class _HomeScreenState extends State<HomeScreen> {
           TextButton(onPressed: (){
             Navigator.of(context).pop();
           }, child: Text("Ok"))
-        ], Text("You Should Update this before 4PM")));
+        ], Text("You Should Update this before 3PM")));
       }
     }
     void toggleThumbsUp3() {
-      if (hourNow<breTime){
+      if (hourNow<dinTime){
       setState(() {
         isThumbsUp3 = !isThumbsUp3;
         updateDataInFirestore('choice', getUsername(), "dinner", isThumbsUp3);
@@ -99,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
           TextButton(onPressed: (){
             Navigator.of(context).pop();
           }, child: Text("Ok"))
-        ], Text("You Should Update this before 6PM")));
+        ], Text("You Should Update this before 5PM")));
       }
     }
 
@@ -120,10 +120,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: <Widget>[
                   Padding(padding: EdgeInsets.fromLTRB(10, 150, 10, 00),child: fadeMeIn(logoWidget("assets/logo/meals.png",140,60),0)),
                   Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 40),child:fadeMeIn(Text("For "+tomdate(), style: TextStyle(color: toColor("d4d4d4"), fontSize: 18, fontWeight: FontWeight.bold)),0)),
-                  fadeMeIn(newcard(context, "Breakfast is ${mealData?.breakfast}", toggleThumbsUp0, isThumbsUp: isThumbsUp0),50),
-                  fadeMeIn(newcard(context, "Lunch is ${mealData?.lunch}", toggleThumbsUp1, isThumbsUp: isThumbsUp1),100),
-                  fadeMeIn(newcard(context, "Snacks is ${mealData?.snacks}", toggleThumbsUp2, isThumbsUp: isThumbsUp2),150),
-                  fadeMeIn(newcard(context, "Dinner is ${mealData?.dinner}", toggleThumbsUp3, isThumbsUp: isThumbsUp3),200),
+                  fadeMeIn(Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: newcard(context, "Breakfast is ${mealData?.breakfast}", toggleThumbsUp0, isThumbsUp: isThumbsUp0),
+                  ),50),
+                  fadeMeIn(Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: newcard(context, "Lunch is ${mealData?.lunch}", toggleThumbsUp1, isThumbsUp: isThumbsUp1),
+                  ),100),
+                  fadeMeIn(Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: newcard(context, "Snacks is ${mealData?.snacks}", toggleThumbsUp2, isThumbsUp: isThumbsUp2),
+                  ),150),
+                  fadeMeIn(Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: newcard(context, "Dinner is ${mealData?.dinner}", toggleThumbsUp3, isThumbsUp: isThumbsUp3),
+                  ),200),
                 ]
               ),
             )

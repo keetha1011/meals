@@ -66,7 +66,8 @@ class _SignInState extends State<SignIn> {
               reusableTextField("Enter Password", Icons.lock_outline, true,
                   _passwordTextController),
               const SizedBox(height: 5),
-              uiButton(context, "Login", addAuthentication),
+              Padding(padding: EdgeInsets.fromLTRB(0,10,0,0,),
+                child: uiButton(context, "Login", addAuthentication)),
               Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child:fadeMeIn(Text("M.E.A.L.S. (Meal Efficiency & Automated Logistics System)",
                 style: TextStyle(color: toColor("d4d4d4"), fontSize: 12)),150)

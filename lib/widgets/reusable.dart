@@ -1,7 +1,8 @@
 // ignore_for_file: avoid_unnecessary_containers
 
 import 'dart:ui';
-
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -23,7 +24,9 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
     obscureText: isPasswordType,
     enableSuggestions: !isPasswordType,
     autocorrect: !isPasswordType,
-    cursorColor: Colors.white,
+    cursorColor: Colors.white.withOpacity(0.5),
+    cursorWidth: 5,
+    cursorHeight: 22,
     style: TextStyle(color: Colors.white.withOpacity(0.9)),
     decoration: InputDecoration(
       prefixIcon: Icon(
@@ -56,9 +59,9 @@ Image ImageWidget(String imageName,double x, double y) {
 
 Container uiButton(BuildContext context, String title, Function onTap) {
   return Container(
-    width: MediaQuery.of(context).size.width,
+    width: 500,
     height: 50,
-    margin: const EdgeInsets.fromLTRB(30, 50, 30, 20),
+    margin: const EdgeInsets.fromLTRB(30, 10, 30, 20),
     decoration: BoxDecoration(borderRadius: BorderRadius.circular(90)),
     child: ElevatedButton(
       onPressed: () {
@@ -104,10 +107,10 @@ class _ParentWidgetState extends State<ParentWidget> {
 
 Container newcard(BuildContext context, String title, Function onTap,{bool isThumbsUp = false}) {
   return Container(
-    width: 400,
+    width: MediaQuery.of(context).size.width*0.85,
     child: Card(
-      
-      elevation: 5,
+      elevation: 10,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),),
       color: toColor("d4d4d4"),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -116,7 +119,7 @@ Container newcard(BuildContext context, String title, Function onTap,{bool isThu
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              Text("$title", style: TextStyle(color:toColor("111111"), fontSize: 22),),
+              Text("$title", style: TextStyle(color:toColor("111111"), fontSize: 20),),
               IconButton(
                 onPressed: () => onTap(),
                 icon: Icon(
@@ -159,3 +162,67 @@ AlertDialog alertMe(BuildContext context, String title, actions ,contents){
     title: Text(title),
   );
 }
+
+
+QrImageView genQR(String data){
+  return QrImageView(
+    data: data,
+    version: QrVersions.auto,
+    size: 120.0,
+    gapless: false,
+    backgroundColor: Colors.white.withOpacity(0.1),
+    eyeStyle: QrEyeStyle(eyeShape: QrEyeShape.square, color: toColor("d4d4d4")),
+    dataModuleStyle: QrDataModuleStyle(dataModuleShape: QrDataModuleShape.circle, color: toColor("d4d4d4")),
+    errorStateBuilder: (context, error) {
+      return Center(
+        child: Text(
+          'Error: $error',
+          style: TextStyle(fontSize: 18),
+        ),
+      );
+    },
+  );
+}
+
+class DownloadAndDisplayImage extends StatefulWidget {
+  @override
+  _DownloadAndDisplayImageState createState() => _DownloadAndDisplayImageState();
+}
+
+class _DownloadAndDisplayImageState extends State<DownloadAndDisplayImage> {
+  String username = getUsername();
+  final FirebaseStorage storage = FirebaseStorage.instance;
+  String? imageUrl;
+
+  @override
+  void initState() {
+    super.initState();
+    downloadImage();
+  }
+  Future<void> downloadImage() async {
+    try{
+    final Reference imageRef = await storage.ref().child('userprof/$username.jpg');
+    final String url = await imageRef.getDownloadURL();
+    setState(() {
+      imageUrl = url;
+    });} on FirebaseException catch (e) {
+      print("exception $e");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (imageUrl != null) {
+      return ClipRRect(child: Image.network(imageUrl!, width: 200, height: 200,),borderRadius: BorderRadius.all(Radius.circular(30)),);
+    } else {
+      return ClipRRect(child: Image.asset(
+        "assets/images/user.jpg",
+        fit: BoxFit.fitWidth,
+        width: 200,
+        height: 200,
+        ),borderRadius: BorderRadius.all(Radius.circular(30)),
+      );
+    }
+  }
+}
+

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project02_hackloop/graph/barGraph.dart';
+import 'package:project02_hackloop/main.dart';
 import 'package:project02_hackloop/utils/color.dart';
 
 class dash extends StatefulWidget {
@@ -9,6 +11,28 @@ class dash extends StatefulWidget {
 }
 
 class _dashState extends State<dash> {
+  List<int> weekExp = [0,0,0,0,0,0,0];
+  expData? myWeekExp;
+
+  void initState() {
+    super.initState();
+    getDailyExp().then((data) {
+      setState(() {
+        myWeekExp = data;
+        weekExp = [
+          myWeekExp!.d0,
+          myWeekExp!.d1,
+          myWeekExp!.d2,
+          myWeekExp!.d3,
+          myWeekExp!.d4,
+          myWeekExp!.d5,
+          myWeekExp!.d6
+        ];
+        print(myWeekExp);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,8 +51,19 @@ class _dashState extends State<dash> {
               child: Column(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 60, 10, 0),
-                    child: Text("Dashboard", style: TextStyle(color: toColor("d4d4d4"), fontSize: 30, fontWeight: FontWeight.bold),),
+                    padding: const EdgeInsets.fromLTRB(10, 100, 10, 30),
+                    child: Text("Expenditure Dashboard", style: TextStyle(color: toColor("d4d4d4"), fontSize: 36, fontWeight: FontWeight.bold, ),textAlign: TextAlign.center,),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 40, 0, 20),
+                    child: SizedBox(
+                      height: 300,
+                      child: MyBar(thisWeek: weekExp,)
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    child: Text("Daily Expenditure", style: TextStyle(color: toColor("d4d4d4"), fontSize: 20, fontWeight: FontWeight.bold),),
                   ),
                 ]
               )

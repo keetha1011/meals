@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project02_hackloop/screens/home.dart';
 import 'package:project02_hackloop/screens/navig.dart';
 import 'package:project02_hackloop/utils/color.dart';
 import 'package:project02_hackloop/widgets/reusable.dart';

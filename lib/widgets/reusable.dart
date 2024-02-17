@@ -1,6 +1,3 @@
-// ignore_for_file: avoid_unnecessary_containers
-
-import 'dart:ui';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,6 +14,7 @@ Image logoWidget(String imageName,double x,double y) {
     color: toColor("d4d4d4"),
   );
 }
+
 TextField reusableTextField(String text, IconData icon, bool isPasswordType,
     TextEditingController controller) {
   return TextField(
@@ -135,6 +133,7 @@ Container newcard(BuildContext context, String title, Function onTap,{bool isThu
     ),
   );
 }
+
 fadeMeIn(Widget wid, double delay){
   return Animate(
     effects: [FadeEffect(delay: delay.ms, begin: 0)],
@@ -162,7 +161,6 @@ AlertDialog alertMe(BuildContext context, String title, actions ,contents){
     title: Text(title),
   );
 }
-
 
 QrImageView genQR(String data){
   return QrImageView(
@@ -226,3 +224,13 @@ class _DownloadAndDisplayImageState extends State<DownloadAndDisplayImage> {
   }
 }
 
+int convToExpence(String a){
+  int num1=0;
+  try {
+    num1 = int.parse(a);
+  } catch (e) {
+    a = a.toLowerCase();
+    num1 = a.codeUnitAt(0)-87;
+  }
+  return num1*10;
+}

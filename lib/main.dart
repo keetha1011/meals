@@ -7,6 +7,8 @@ import 'package:project02_hackloop/Screens/signin.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project02_hackloop/screens/navig.dart';
+import 'package:project02_hackloop/utils/time.dart';
+import 'package:project02_hackloop/widgets/reusable.dart';
 import 'firebase_options.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
@@ -73,7 +75,6 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
   }
 }
 
-
 class MealData {
   String breakfast, lunch, snacks, dinner;
   MealData({required this.breakfast, required this.lunch, required this.snacks, required this.dinner});
@@ -135,4 +136,42 @@ Future<void> updateDataInFirestore(String collectionName, String documentId, Str
   } catch (e) {
     print('Error updating data: $e');
   }
+}
+
+class expData {
+  int d0=0,d1=0,d2=0,d3=0,d4=0,d5=0,d6=0;
+  expData({
+    required this.d0,
+    required this.d1,
+    required this.d2,
+    required this.d3,
+    required this.d4,
+    required this.d5,
+    required this.d6,
+  });
+}
+
+Future<expData> getDailyExp() async {
+  final db = FirebaseFirestore.instance;
+  final collection = db.collection('fees');
+  final document = collection.doc('daily');
+  final data = await document.get();
+  final exp = data.data();
+  print(exp);
+  String d;
+  int d0 = 0,d1 = 0,d2 = 0,d3 = 0,d4 = 0,d5 = 0,d6 = 0;
+  if (exp == null){
+    print("null data");
+  }
+  else{
+    d = await (exp[getUsername()] as FutureOr<String>?) ?? '0000000000000000000000000000000';
+    d0 = convToExpence(d[pastDate(7)-1]);
+    d1 = convToExpence(d[pastDate(6)-1]);
+    d2 = convToExpence(d[pastDate(5)-1]);
+    d3 = convToExpence(d[pastDate(4)-1]);
+    d4 = convToExpence(d[pastDate(3)-1]);
+    d5 = convToExpence(d[pastDate(2)-1]);
+    d6 = convToExpence(d[pastDate(1)-1]);
+  }
+  return expData(d0: d0, d1: d1, d2: d2, d3: d3, d4: d4, d5: d5, d6: d6);
 }

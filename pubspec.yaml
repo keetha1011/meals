@@ -20,6 +20,7 @@ dependencies:
   flutter_native_splash: ^2.3.10
   google_nav_bar: ^5.0.6
   qr_flutter: ^4.1.0
+  fl_chart: ^0.66.2
 
 dev_dependencies:
   flutter_test:

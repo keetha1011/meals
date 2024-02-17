@@ -30,3 +30,16 @@ int hournow() {
 
   return hour;
 }
+
+int pastDate(int past) {
+  DateTime internetTime = DateTime.now();
+
+  NTP.getNtpOffset(
+    localTime: DateTime.now(), lookUpAddress: "time.google.com").then((offset) {
+    internetTime = DateTime.now().add(Duration(milliseconds: offset));
+  });
+
+  internetTime = internetTime.subtract(Duration(days: past));
+  int date = internetTime.day;
+  return date;
+}

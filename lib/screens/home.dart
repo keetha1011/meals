@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:project02_hackloop/main.dart';
-import 'package:project02_hackloop/screens/user.dart';
 import 'package:project02_hackloop/utils/color.dart';
 import 'package:project02_hackloop/utils/time.dart';
 import 'package:project02_hackloop/widgets/reusable.dart';

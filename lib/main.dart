@@ -13,7 +13,6 @@ import 'firebase_options.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   var connectivityResult = await Connectivity().checkConnectivity();
   if (connectivityResult == ConnectivityResult.none) {
@@ -27,7 +26,6 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MainApp());
-
 }
 
 class MainApp extends StatelessWidget {
@@ -59,6 +57,7 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
       checkUserAuthentication();
     });
   }
+
   void checkUserAuthentication() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
@@ -77,7 +76,11 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
 
 class MealData {
   String breakfast, lunch, snacks, dinner;
-  MealData({required this.breakfast, required this.lunch, required this.snacks, required this.dinner});
+  MealData(
+      {required this.breakfast,
+      required this.lunch,
+      required this.snacks,
+      required this.dinner});
 }
 
 Future<MealData> getMealData(String documentId) async {
@@ -86,23 +89,30 @@ Future<MealData> getMealData(String documentId) async {
   final document = collection.doc('wVjEr23OuiRIJMMTw1ZD');
   final data = await document.get();
   final mealData = data.data();
-  
-  String breakfast = 'default', lunch = 'default', snacks = 'default', dinner = 'default';
-  if (mealData == null){
+
+  String breakfast = 'default',
+      lunch = 'default',
+      snacks = 'default',
+      dinner = 'default';
+  if (mealData == null) {
     print("null data");
-  }
-  else{
+  } else {
     breakfast = await (mealData['breakfast'] as FutureOr<String>?) ?? 'default';
     lunch = await (mealData['lunch'] as FutureOr<String>?) ?? 'default';
     snacks = await (mealData['snacks'] as FutureOr<String>?) ?? 'default';
     dinner = await (mealData['dinner'] as FutureOr<String>?) ?? 'default';
   }
-  return MealData(breakfast: breakfast, lunch: lunch, snacks: snacks, dinner: dinner);
+  return MealData(
+      breakfast: breakfast, lunch: lunch, snacks: snacks, dinner: dinner);
 }
 
 class ChoiceData {
   bool breakfast, lunch, snacks, dinner;
-  ChoiceData({required this.breakfast, required this.lunch, required this.snacks, required this.dinner});
+  ChoiceData(
+      {required this.breakfast,
+      required this.lunch,
+      required this.snacks,
+      required this.dinner});
 }
 
 Future<ChoiceData> getChoiceData(String documentId) async {
@@ -111,21 +121,22 @@ Future<ChoiceData> getChoiceData(String documentId) async {
   final document = collection.doc(documentId);
   final data = await document.get();
   final choiceData = data.data();
-  
+
   bool breakfast = true, lunch = true, snacks = true, dinner = true;
-  if (choiceData == null){
+  if (choiceData == null) {
     print("null data");
-  }
-  else{
+  } else {
     breakfast = await (choiceData['breakfast'] as FutureOr<bool>?) ?? true;
     lunch = await (choiceData['lunch'] as FutureOr<bool>?) ?? true;
     snacks = await (choiceData['snacks'] as FutureOr<bool>?) ?? true;
     dinner = await (choiceData['dinner'] as FutureOr<bool>?) ?? true;
   }
-  return ChoiceData(breakfast: breakfast, lunch: lunch, snacks: snacks, dinner: dinner);
+  return ChoiceData(
+      breakfast: breakfast, lunch: lunch, snacks: snacks, dinner: dinner);
 }
 
-Future<void> updateDataInFirestore(String collectionName, String documentId, String fieldName, var newValue) async {
+Future<void> updateDataInFirestore(String collectionName, String documentId,
+    String fieldName, var newValue) async {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   try {
@@ -139,7 +150,7 @@ Future<void> updateDataInFirestore(String collectionName, String documentId, Str
 }
 
 class expData {
-  int d0=0,d1=0,d2=0,d3=0,d4=0,d5=0,d6=0;
+  int d0 = 0, d1 = 0, d2 = 0, d3 = 0, d4 = 0, d5 = 0, d6 = 0;
   expData({
     required this.d0,
     required this.d1,
@@ -158,19 +169,19 @@ Future<expData> getDailyExp() async {
   final data = await document.get();
   final exp = data.data();
   String d;
-  int d0 = 0,d1 = 0,d2 = 0,d3 = 0,d4 = 0,d5 = 0,d6 = 0;
-  if (exp == null){
+  int d0 = 0, d1 = 0, d2 = 0, d3 = 0, d4 = 0, d5 = 0, d6 = 0;
+  if (exp == null) {
     print("null data");
-  }
-  else{
-    d = await (exp[getUsername()] as FutureOr<String>?) ?? '0000000000000000000000000000000';
-    d0 = convToExpence(d[pastDate(7)-1]);
-    d1 = convToExpence(d[pastDate(6)-1]);
-    d2 = convToExpence(d[pastDate(5)-1]);
-    d3 = convToExpence(d[pastDate(4)-1]);
-    d4 = convToExpence(d[pastDate(3)-1]);
-    d5 = convToExpence(d[pastDate(2)-1]);
-    d6 = convToExpence(d[pastDate(1)-1]);
+  } else {
+    d = await (exp[getUsername()] as FutureOr<String>?) ??
+        '0000000000000000000000000000000';
+    d0 = convToExpence(d[pastDate(7) - 1]);
+    d1 = convToExpence(d[pastDate(6) - 1]);
+    d2 = convToExpence(d[pastDate(5) - 1]);
+    d3 = convToExpence(d[pastDate(4) - 1]);
+    d4 = convToExpence(d[pastDate(3) - 1]);
+    d5 = convToExpence(d[pastDate(2) - 1]);
+    d6 = convToExpence(d[pastDate(1) - 1]);
   }
   return expData(d0: d0, d1: d1, d2: d2, d3: d3, d4: d4, d5: d5, d6: d6);
 }
@@ -183,13 +194,13 @@ Future<double> fullMonthExp() async {
   final exp = data.data();
   double Sum = 0;
   String d;
-  if (exp == null){
+  if (exp == null) {
     print("null data");
-  }
-  else{
-    d = await (exp[getUsername()] as FutureOr<String>?) ?? '0000000000000000000000000000000';
+  } else {
+    d = await (exp[getUsername()] as FutureOr<String>?) ??
+        '0000000000000000000000000000000';
     for (var i = 0; i < 31; i++) {
-      Sum+=convToExpence(d[i]);
+      Sum += convToExpence(d[i]);
     }
   }
   return Sum;

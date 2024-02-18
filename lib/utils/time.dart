@@ -3,14 +3,16 @@ import 'package:ntp/ntp.dart';
 String tomdate() {
   DateTime internetTime = DateTime.now();
 
-  NTP.getNtpOffset(
-    localTime: DateTime.now(), lookUpAddress: "time.google.com").then((offset) {
+  NTP
+      .getNtpOffset(localTime: DateTime.now(), lookUpAddress: "time.google.com")
+      .then((offset) {
     internetTime = DateTime.now().add(Duration(milliseconds: offset));
   });
 
   DateTime today = internetTime;
 
-  String date = today.day.toString().padLeft(2, '0') + "/" +
+  String date = today.day.toString().padLeft(2, '0') +
+      "/" +
       today.month.toString().padLeft(2, '0');
 
   return date;
@@ -19,8 +21,9 @@ String tomdate() {
 int hournow() {
   DateTime internetTime = DateTime.now();
 
-  NTP.getNtpOffset(
-    localTime: DateTime.now(), lookUpAddress: "time.google.com").then((offset) {
+  NTP
+      .getNtpOffset(localTime: DateTime.now(), lookUpAddress: "time.google.com")
+      .then((offset) {
     internetTime = DateTime.now().add(Duration(milliseconds: offset));
   });
 
@@ -34,8 +37,9 @@ int hournow() {
 int pastDate(int past) {
   DateTime internetTime = DateTime.now();
 
-  NTP.getNtpOffset(
-    localTime: DateTime.now(), lookUpAddress: "time.google.com").then((offset) {
+  NTP
+      .getNtpOffset(localTime: DateTime.now(), lookUpAddress: "time.google.com")
+      .then((offset) {
     internetTime = DateTime.now().add(Duration(milliseconds: offset));
   });
 
@@ -47,8 +51,9 @@ int pastDate(int past) {
 int thisMonth() {
   DateTime internetTime = DateTime.now();
 
-  NTP.getNtpOffset(
-    localTime: DateTime.now(), lookUpAddress: "time.google.com").then((offset) {
+  NTP
+      .getNtpOffset(localTime: DateTime.now(), lookUpAddress: "time.google.com")
+      .then((offset) {
     internetTime = DateTime.now().add(Duration(milliseconds: offset));
   });
   int mon = internetTime.month;

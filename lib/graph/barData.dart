@@ -21,7 +21,7 @@ class BarData {
 
   List<indivisualBar> barData = [];
 
-  void initializeBarData(){
+  void initializeBarData() {
     barData = [
       indivisualBar(x: 0, y: d0.toDouble()),
       indivisualBar(x: 1, y: d1.toDouble()),

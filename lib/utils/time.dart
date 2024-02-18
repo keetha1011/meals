@@ -43,3 +43,14 @@ int pastDate(int past) {
   int date = internetTime.day;
   return date;
 }
+
+int thisMonth() {
+  DateTime internetTime = DateTime.now();
+
+  NTP.getNtpOffset(
+    localTime: DateTime.now(), lookUpAddress: "time.google.com").then((offset) {
+    internetTime = DateTime.now().add(Duration(milliseconds: offset));
+  });
+  int mon = internetTime.month;
+  return mon;
+}

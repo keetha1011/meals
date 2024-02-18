@@ -16,7 +16,25 @@ class infoscreen extends StatelessWidget {
           children: [
             SizedBox(height: 16),
             Text(
-              'Here is some information that the user needs to know. It can be any text, such as instructions, guidelines, or explanations. You can also use other widgets like images, lists, or buttons to make the page more interactive and informative.',
+              "=> You can select which meals you want to eat: This can be done using selecting the thumbs up button in the 'meals' section.\n",
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            Text(
+              "=> If you opt to be absent in a meal and then do not attend the meal, then you will not be charged for that.\n",
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            Text(
+              "=> But... there's always a but... If you opt to be absent but attend the meal regardless, you will be charged and fined 10/-\n",
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            Text(
+              "=> You can see your weekly and daily expenditures in the dashboard\n",
               style: TextStyle(
                 fontSize: 16,
               ),

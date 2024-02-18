@@ -157,7 +157,6 @@ Future<expData> getDailyExp() async {
   final document = collection.doc('daily');
   final data = await document.get();
   final exp = data.data();
-  print(exp);
   String d;
   int d0 = 0,d1 = 0,d2 = 0,d3 = 0,d4 = 0,d5 = 0,d6 = 0;
   if (exp == null){
@@ -174,4 +173,24 @@ Future<expData> getDailyExp() async {
     d6 = convToExpence(d[pastDate(1)-1]);
   }
   return expData(d0: d0, d1: d1, d2: d2, d3: d3, d4: d4, d5: d5, d6: d6);
+}
+
+Future<double> fullMonthExp() async {
+  final db = FirebaseFirestore.instance;
+  final collection = db.collection('fees');
+  final document = collection.doc('daily');
+  final data = await document.get();
+  final exp = data.data();
+  double Sum = 0;
+  String d;
+  if (exp == null){
+    print("null data");
+  }
+  else{
+    d = await (exp[getUsername()] as FutureOr<String>?) ?? '0000000000000000000000000000000';
+    for (var i = 0; i < 31; i++) {
+      Sum+=convToExpence(d[i]);
+    }
+  }
+  return Sum;
 }

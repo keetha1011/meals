@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     int hourNow = hournow();
-    int breTime = 6, lunTime = 10, sncTime = 15, dinTime = 17;
+    int breTime = 5, lunTime = 10, sncTime = 15, dinTime = 17;
 
     void toggleThumbsUp0() {
       if (hourNow<breTime){
@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
           TextButton(onPressed: (){
             Navigator.of(context).pop();
           }, child: Text("Ok"))
-        ], Text("You Should Update this before 6AM")));
+        ], Text("You Should Update this before 5AM")));
       }
     }
     void toggleThumbsUp1() {

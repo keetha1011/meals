@@ -47,7 +47,7 @@ class MyBar extends StatelessWidget {
             barRods: [BarChartRodData(
               toY: e.y.toDouble(), // convert integer to double
               color: toColor("d4d4d4"),
-              width: 10,
+              width: 20,
               borderRadius: BorderRadius.circular(2),
               )]
           )

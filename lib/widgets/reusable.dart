@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -233,4 +236,19 @@ int convToExpence(String a){
     num1 = a.codeUnitAt(0)-87;
   }
   return num1*10;
+}
+
+Card expenceCard(BuildContext context, String title,){
+  return Card(
+    elevation: 5,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+    color: toColor("d4d4d4"),
+    child: Container(
+      width: MediaQuery.of(context).size.width/2-45,
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+        child: Text(title, style: TextStyle(color: toColor("666666"), fontWeight: FontWeight.bold,fontSize: 18),),
+      ),
+    )
+  );
 }

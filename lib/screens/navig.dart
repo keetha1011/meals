@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:project02_hackloop/admins/adminHome.dart';
 import 'package:project02_hackloop/screens/dashboard.dart';
 import 'package:project02_hackloop/screens/home.dart';
 import 'package:project02_hackloop/screens/user.dart';
 import 'package:project02_hackloop/utils/color.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:project02_hackloop/widgets/reusable.dart';
 
 class navigation extends StatefulWidget {
   const navigation({super.key});
 
   @override
-  State<navigation> createState() => _navigationState();
+  State<navigation> createState() {
+    return _navigationState();
+  }
 }
 
 class _navigationState extends State<navigation> {
   int _selectedIndex = 0;
-
   static List<Widget> _pages = [HomeScreen(), dash(), usercenter()];
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;

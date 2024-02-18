@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project02_hackloop/admins/adminHome.dart';
 import 'package:project02_hackloop/screens/navig.dart';
 import 'package:project02_hackloop/utils/color.dart';
 import 'package:project02_hackloop/widgets/reusable.dart';
@@ -21,10 +22,14 @@ class _SignInState extends State<SignIn> {
           .signInWithEmailAndPassword(
               email: _emailTextController.text,
               password: _passwordTextController.text)
-          .then((value) => Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => navigation()),
-              ));
+          .then((value) async {
+        String username = getUsername();
+        print('Username: $username');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => isAdmin(getUsername())),
+        );
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -87,12 +92,19 @@ class _SignInState extends State<SignIn> {
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                   child: fadeMeIn(
                       Text(
-                          "M.E.A.L.S. (Meal Efficiency & Automated Logistics System)",
-                          style: TextStyle(
-                              color: toColor("d4d4d4"), fontSize: 12)),
+                        "M.E.A.L.S. (Meal Efficiency & Automated Logistics System)",
+                        style:
+                            TextStyle(color: toColor("d4d4d4"), fontSize: 12),
+                        textAlign: TextAlign.center,
+                      ),
                       150)),
             ]),
           ))),
     );
   }
+}
+
+isAdmin(username) {
+  bool truth = (username == "meals.admn");
+  return truth ? adminHome() : navigation();
 }

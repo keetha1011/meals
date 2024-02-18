@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,9 +23,9 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
     obscureText: isPasswordType,
     enableSuggestions: !isPasswordType,
     autocorrect: !isPasswordType,
-    cursorColor: Colors.white.withOpacity(0.5),
-    cursorWidth: 5,
-    cursorHeight: 22,
+    cursorColor: Colors.white.withOpacity(0.9),
+    cursorWidth: 2,
+    cursorHeight: 20,
     style: TextStyle(color: Colors.white.withOpacity(0.9)),
     decoration: InputDecoration(
       prefixIcon: Icon(
@@ -282,4 +283,55 @@ Card expenceCard(
           ),
         ),
       ));
+}
+
+Card inputCard(String title, Function onTap, TextEditingController controller,
+    String meal) {
+  return Card(
+    color: Colors.black.withOpacity(0.1),
+    elevation: 0,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16.0),
+    ),
+    child: Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  child: TextField(
+                    controller: controller,
+                    cursorColor: toColor("d4d4d4"),
+                    style: TextStyle(color: toColor("d4d4d4")),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.black.withOpacity(0.05),
+                      labelStyle: TextStyle(color: toColor("d4d4d4")),
+                      labelText: "$title: $meal",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              width: 0, color: Colors.black.withOpacity(0.05)),
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                    onSubmitted: (str) {
+                      if (str != '') {
+                        onTap();
+                        controller.clear();
+                      }
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
 }

@@ -51,11 +51,14 @@ class _usercenterState extends State<usercenter> {
               Padding(
                   padding: EdgeInsets.fromLTRB(10, 10, 10, 20),
                   child: fadeMeIn(
-                      Text("(Contact admin for User Credentials)",
-                          style: TextStyle(
-                              color: toColor("d4d4d4"),
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold)),
+                      Text(
+                        "(Contact admin for User Credentials)",
+                        style: TextStyle(
+                            color: toColor("d4d4d4"),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
                       50)),
               fadeMeIn(genQR(qrdata), 100),
               SizedBox(height: len),

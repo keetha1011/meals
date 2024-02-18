@@ -63,7 +63,7 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
     if (user != null) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => navigation()),
+        MaterialPageRoute(builder: (context) => isAdmin(getUsername())),
       );
     }
   }

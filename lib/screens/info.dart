@@ -6,7 +6,7 @@ class infoscreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('M.E.A.L.S.'),
+        title: Text('Meal Efficiency & Automated Logistics System'),
         backgroundColor: toColor("bb1009"),
       ),
       body: Padding(

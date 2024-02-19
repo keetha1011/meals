@@ -67,11 +67,14 @@ class _SignInState extends State<SignIn> {
           )),
           child: SingleChildScrollView(
               child: Padding(
-            padding: EdgeInsets.fromLTRB(20, 80, 20, 0),
+            padding: EdgeInsets.fromLTRB(30, 80, 30, 0),
             child: Column(children: <Widget>[
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 2 - 200,
+              ),
               Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 60),
-                  child: logoWidget("assets/logo/meals_large.png", 320, 240)),
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
+                  child: logoWidget("assets/logo/meals_large.png", 320, 80)),
               reusableTextField("Enter UserName", Icons.person_outline, false,
                   _emailTextController),
               const SizedBox(

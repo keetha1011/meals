@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project02_hackloop/admins/adminDash.dart';
 import 'package:project02_hackloop/main.dart';
+import 'package:project02_hackloop/screens/deleteUser.dart';
 import 'package:project02_hackloop/screens/signin.dart';
+import 'package:project02_hackloop/screens/signup.dart';
 import 'package:project02_hackloop/utils/color.dart';
 import 'package:project02_hackloop/widgets/reusable.dart';
 
@@ -20,6 +22,7 @@ class _adminHomeState extends State<adminHome> {
   TextEditingController snacksText = TextEditingController();
   TextEditingController dinnerText = TextEditingController();
   MealData? mealData;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -164,19 +167,30 @@ class _adminHomeState extends State<adminHome> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
+                child: Column(
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width / 2 - 20,
-                      child: uiButton(context, "New User", () {}),
+                      width: MediaQuery.of(context).size.width - 80,
+                      child: uiButton(context, "New User", () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => signup()));
+                      }),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width / 2 - 20,
-                      child: uiButton(context, "Delete User", () {}),
+                      width: MediaQuery.of(context).size.width - 80,
+                      child: uiButton(context, "Delete User", () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => deleteUser()));
+                      }),
                     ),
                   ],
                 ),
               ),
+              SizedBox(
+                height: 100,
+              )
             ],
           ),
         ),

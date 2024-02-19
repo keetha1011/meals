@@ -22,6 +22,7 @@ dependencies:
   qr_flutter: ^4.1.0
   fl_chart: ^0.66.2
   image_picker: ^1.0.7
+  qr_code_scanner: ^1.0.1
 
 dev_dependencies:
   flutter_test:

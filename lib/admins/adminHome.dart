@@ -61,7 +61,7 @@ class _adminHomeState extends State<adminHome> {
                     itemBuilder: (BuildContext context) => <PopupMenuItem<int>>[
                       const PopupMenuItem<int>(
                         value: 0,
-                        child: Text('QR Code'),
+                        child: Text('Dashboard'),
                       ),
                       const PopupMenuItem<int>(
                         value: 1,

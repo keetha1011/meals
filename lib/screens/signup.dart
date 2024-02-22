@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project02_hackloop/main.dart';
 import 'package:project02_hackloop/utils/color.dart';
 import 'package:project02_hackloop/widgets/reusable.dart';
 
@@ -19,6 +20,24 @@ class _signupState extends State<signup> {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       print(getUsername());
+      await createDocumentWithId("attendance", email.substring(0, 10), {
+        "breakfast": false,
+        "lunch": false,
+        "snacks": false,
+        "dinner": false,
+      });
+      await createDocumentWithId("choice", email.substring(0, 10), {
+        "breakfast": true,
+        "lunch": true,
+        "snacks": true,
+        "dinner": true,
+      });
+      await createDocumentWithId("fees", "daily", {
+        "${email.substring(0, 10)}": "0000000000000000000000000000000",
+      });
+      await createDocumentWithId("fees", "daily", {
+        "${email.substring(0, 10)}": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      });
       FirebaseAuth.instance.signOut();
       FirebaseAuth.instance.signInWithEmailAndPassword(
           email: "meals.admn@gmail.com", password: "mealsappadmin");

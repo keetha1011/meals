@@ -338,3 +338,15 @@ Card inputCard(String title, Function onTap, TextEditingController controller,
     ),
   );
 }
+
+String convHrToMeal(int hr) {
+  if (hr < 11) {
+    return "breakfast";
+  } else if (hr < 16) {
+    return "lunch";
+  } else if (hr < 19) {
+    return "snacks";
+  } else {
+    return "dinner";
+  }
+}

@@ -22,7 +22,6 @@ class _adminHomeState extends State<adminHome> {
   TextEditingController snacksText = TextEditingController();
   TextEditingController dinnerText = TextEditingController();
   MealData? mealData;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
